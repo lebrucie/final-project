@@ -8,18 +8,21 @@ const register = async (email, password) => {
       },
     };
 
-    const { data } = await axios.post(
+    const res = await axios.post(
       `http://localhost:5000/api/users/signup`,
       { email, password },
       config
     );
-
-    if (data) {
-    } else {
-      throw new Error("Database Error");
-    }
+const data = await res;
+    console.log(data);
+    return data;
   } catch (error) {
-    console.log(error);
+    return {
+      error:
+        error.response && error.response.data
+          ? error.response.data
+          : error.message,
+    };
   }
 };
 

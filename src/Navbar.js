@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 const Navbar = ({ loggedIn, setLoggedIn }) => {
   const logoutHandler = () => {
-    localStorage.removeItem("userInfo");
+    localStorage.removeItem("userId");
     setLoggedIn();
   };
 
   return (
     <nav className="navbar">
-      <h1>The Dojo Blog</h1>
+      <h1>Nah Cho Blog</h1>
       <div className="links">
         <Link to="/">Home</Link>
 

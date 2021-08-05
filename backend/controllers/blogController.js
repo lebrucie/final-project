@@ -1,19 +1,25 @@
 const Blog = require("../models/Blog");
+const User = require("../models/User");
 // const { validationResult } = require("express-validator");
 
 const create_post = async (req, res, next) => {
   console.log("Blog-post");
-  const { title, body, author, userId } = req.body;
+  const { title, body, userId } = req.body;
+
   try {
+  const user = await User.findById(userId);
     //Add Post to DB
-    await Blog.create({
+    if(user){
+       await Blog.create({
       title,
       body,
-      author,
+      author: user.email,
       userId,
     });
 
     res.status(200).send("Post Successfully Created");
+}
+   
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

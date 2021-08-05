@@ -5,6 +5,7 @@ import axios from "axios";
 const Home = () => {
   const [allBlogs, setAllBlogs] = useState([]);
 
+
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/blogs`)
@@ -13,7 +14,7 @@ const Home = () => {
         setAllBlogs(blogs);
       })
       .catch((err) => console.error(err));
-  }, []);
+  },);
 
   return (
     <div className="home">
@@ -22,7 +23,7 @@ const Home = () => {
           <div className="blog-preview" key={blog._id}>
             <Link to={`/blogs/${blog._id}`}>
               <h2>{blog.title}</h2>
-              <p>Written by {blog.author}</p>
+              <p>Written by: {blog.author}</p>
             </Link>
           </div>
         ))}

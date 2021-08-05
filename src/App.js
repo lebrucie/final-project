@@ -22,21 +22,22 @@ function App() {
     setShow(!show);
   };
 
+
   return (
     <Router>
       <div className="App">
         <Navbar loggedIn={loggedIn} setLoggedIn={handleLoggedIn} />
-        <div>{msg && <Message msg={msg} setMsg={setMsg} />}</div>
+        <div>{msg && <Message msg={msg} setMsg={setMsg}  />}</div>
         <div className="content">
           <Switch>
             <Route exact path="/">
-              <Home />
+              <Home/>
             </Route>
             <Route path="/create">
-              <Create />
+              <Create setMsg={setMsg} />
             </Route>
             <Route path="/registration">
-              <Registration />
+              <Registration setMsg={setMsg}/>
             </Route>
             <Route path="/login">
               <Login
@@ -46,7 +47,7 @@ function App() {
               />
             </Route>
             <Route path="/blogs/:id">
-              <BlogDetails loggedIn={loggedIn} />
+              <BlogDetails loggedIn={loggedIn} setMsg={setMsg}/>
             </Route>
             <Route path="*">
               <NotFound />

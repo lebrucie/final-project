@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 
-const Message = ({ msg, show, setMsg }) => {
+const Message = ({ msg, show, setMsg}) => {
   console.log(msg);
+  
+
   useEffect(() => {
     setTimeout(() => {
       setMsg(null);

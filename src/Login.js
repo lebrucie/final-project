@@ -12,22 +12,32 @@ const Login = ({ setLoggedIn, setMsg, setShow }) => {
 
     if (!email || !password) {
       setMsg("All feilds are required");
-    } else {
+    } 
+
       const result = await login(email, password);
-      if (result.error) {
-        setMsg(result.error);
-        // } else {
-        //   setMsg(result.error.data[0].msg);
-      }
+      
+        if(result.error) {
+          console.log(result)
+          result.error.data !== 0 && setMsg(result.error.data[0].msg)
+          result.error.message && setMsg(result.error.message)
+        } else{
+
 
       console.log(result);
-      // } else {
-      // setLoggedIn();
-      // setMsg("Logged In Successfully");
-      // console.log(`${email} has logged in`);
-      // history.push("/");
-    }
-  };
+      setLoggedIn();
+      localStorage.setItem('userId', result.data._id)
+      setMsg("Logged In Successfully");
+      console.log(`${email} has logged in`);
+      history.push("/");
+      }
+        
+        
+  
+
+    
+    
+      }
+  
 
   return (
     <form>
