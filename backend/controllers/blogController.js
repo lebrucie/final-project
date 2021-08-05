@@ -3,11 +3,14 @@ const Blog = require("../models/Blog");
 
 const create_post = async (req, res, next) => {
   console.log("Blog-post");
-  const { title, body, author } = req.body;
-try{
+  const { title, body, author, userId } = req.body;
+  try {
     //Add Post to DB
     await Blog.create({
-      title,body,author
+      title,
+      body,
+      author,
+      userId,
     });
 
     res.status(200).send("Post Successfully Created");
@@ -36,7 +39,41 @@ const get_Blogs = async (req, res, next) => {
   }
 };
 
+const get_Blog_Details = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const blog = await Blog.findById(id);
 
+    if (blog) {
+      res.status(200).json(blog);
+    } else {
+      throw Error;
+    }
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
 
+const delete_blog = async (req, res, next) => {
+  console.log("delete");
+  const id = req.params.id;
+  try {
+    const blog = await Blog.findByIdAndDelete(id);
 
-module.exports = { create_post, get_Blogs };
+    if (blog) {
+      res.status(200).json({ msg: "Blog successfully deleted", blog });
+    } else {
+      throw Error;
+    }
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};
+
+module.exports = { create_post, get_Blogs, get_Blog_Details, delete_blog };

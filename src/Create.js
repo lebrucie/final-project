@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import create from './actions/blogCreate'
+import create from "./actions/blogCreate";
 
 const Create = () => {
   const [title, setTitle] = useState("");
@@ -10,13 +10,13 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const blog = { title, body, author };
 
-   if (title && body && author) {
-      create(title, body, author);
+    if (title && body && author) {
+      const userId = localStorage.getItem("userId");
+      const status = create(title, body, author, userId);
+      if (status) history.push("/");
     } else {
-      console.log("Please fill all fields")
-      history.push("/")
+      console.log("Please fill all fields");
     }
   };
 

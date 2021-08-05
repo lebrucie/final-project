@@ -70,6 +70,17 @@
   cursor: pointer;
 }
 
+/* Notifications */
+.msg_banner {
+  margin: 0 auto;
+  padding: 0.5rem;
+  background: #f1356d;
+  color: #fff;
+  border-radius: 20px;
+  width: 80%;
+  text-align: center;
+}
+
 /* create new blog form */
 .create {
   max-width: 400px;

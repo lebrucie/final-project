@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const create = async (title, body, author) => {
-  console.log('blogCreate')
+const create = async (title, body, author, userId) => {
   try {
     const config = {
       headers: {
@@ -10,13 +9,13 @@ const create = async (title, body, author) => {
     };
 
     const { data } = await axios.post(
-      `http://localhost:8000/api/blogs/create`,
-      { title, body, author },
+      `http://localhost:5000/api/blogs/create`,
+      { title, body, author, userId },
       config
     );
 
     if (data) {
-        console.log(data)
+      return true;
     } else {
       throw new Error("Database Error");
     }
@@ -25,4 +24,4 @@ const create = async (title, body, author) => {
   }
 };
 
-export default create
+export default create;

@@ -9,13 +9,12 @@ const register = async (email, password) => {
     };
 
     const { data } = await axios.post(
-      `http://localhost:8000/api/users/signup`,
+      `http://localhost:5000/api/users/signup`,
       { email, password },
       config
     );
 
     if (data) {
-      localStorage.setItem("userInfo", JSON.stringify(data));
     } else {
       throw new Error("Database Error");
     }
@@ -24,4 +23,4 @@ const register = async (email, password) => {
   }
 };
 
-export default register
+export default register;

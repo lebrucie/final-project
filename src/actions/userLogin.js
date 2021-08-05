@@ -8,20 +8,22 @@ const login = async (email, password) => {
       },
     };
 
-    const { data } = await axios.post(
-      `http://localhost:8000/api/users/login`,
+    const res = await axios.post(
+      `http://localhost:5000/api/users/login`,
       { email, password },
       config
     );
-
-    if (data) {
-      localStorage.setItem("userInfo", JSON.stringify(data));
-    } else {
-      throw new Error("Database Error");
-    }
+    const data = await res;
+    console.log(data);
+    return data;
   } catch (error) {
-    console.log(error);
+    return {
+      error:
+        error.response && error.response.data
+          ? error.response.data
+          : error.message,
+    };
   }
 };
 
-export default login
+export default login;

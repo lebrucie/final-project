@@ -1,33 +1,43 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import useFetch from "./useFetch";
 
-const BlogDetails = () => {
+const BlogDetails = ({ loggedIn }) => {
+  const [blog, setBlog] = useState([]);
+
   const { id } = useParams();
-  const {
-    data: blog,
-    error,
-    isPending,
-  } = useFetch("http://localhost:8000/blogs/" + id);
   const history = useHistory();
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/api/blogs/${id}`)
+      .then((res) => {
+        const blog = res.data;
+        setBlog(blog);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   const handleClick = () => {
-    fetch("http://localhost:8000/blogs/" + blog.id, {
-      method: "DELETE",
-    }).then(() => {
-      history.push("/");
-    });
+    axios
+      .delete(`http://localhost:5000/api/blogs/${id}`)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
     <div className="blog-details">
-      {isPending && <div>Loading...</div>}
-      {error && <div>{error}</div>}
       {blog && (
         <article>
           <h2>{blog.title}</h2>
           <p>Written by {blog.author}</p>
           <div>{blog.body}</div>
-          <button onClick={handleClick}>delete</button>
+          {userId === blog.userId && loggedIn && (
+            <button onClick={handleClick}>delete</button>
+          )}
         </article>
       )}
     </div>

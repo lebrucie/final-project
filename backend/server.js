@@ -7,7 +7,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const app = express();
-const port = 8000;
+const port = process.env.SERVER;
 
 //middleware
 app.use(express.static("public"));
