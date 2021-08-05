@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import create from "./actions/blogCreate";
+import newBlog from "./actions/blogCreate";
 
-const Create = () => {
+const Create = ({setMsg}) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("mario");
   const history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (title && body && author) {
+    if (title && body) {
       const userId = localStorage.getItem("userId");
-      const status = create(title, body, author, userId);
-      if (status) history.push("/");
+      const status = newBlog(title, body, userId);
+      if (status) {
+        history.push("/");
+
+        setMsg('Blog Successfully Created')
+        
+      }
     } else {
       console.log("Please fill all fields");
     }
@@ -37,11 +41,6 @@ const Create = () => {
           value={body}
           onChange={(e) => setBody(e.target.value)}
         ></textarea>
-        <label>Blog author:</label>
-        <select value={author} onChange={(e) => setAuthor(e.target.value)}>
-          <option value="mario">mario</option>
-          <option value="yoshi">yoshi</option>
-        </select>
         <button>Add Blog</button>
       </form>
     </div>

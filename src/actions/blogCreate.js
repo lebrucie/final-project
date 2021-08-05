@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const create = async (title, body, author, userId) => {
+const newBlog = async (title, body, userId) => {
   try {
     const config = {
       headers: {
@@ -10,7 +10,7 @@ const create = async (title, body, author, userId) => {
 
     const { data } = await axios.post(
       `http://localhost:5000/api/blogs/create`,
-      { title, body, author, userId },
+      { title, body, userId },
       config
     );
 
@@ -24,4 +24,4 @@ const create = async (title, body, author, userId) => {
   }
 };
 
-export default create;
+export default newBlog;

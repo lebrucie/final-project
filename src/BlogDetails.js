@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 
-const BlogDetails = ({ loggedIn }) => {
+const BlogDetails = ({ loggedIn, setMsg }) => {
   const [blog, setBlog] = useState([]);
 
   const { id } = useParams();
@@ -24,6 +24,7 @@ const BlogDetails = ({ loggedIn }) => {
       .delete(`http://localhost:5000/api/blogs/${id}`)
       .then(() => {
         history.push("/");
+        setMsg('Blog Successfully Deleted');
       })
       .catch((err) => console.error(err));
   };
@@ -33,7 +34,7 @@ const BlogDetails = ({ loggedIn }) => {
       {blog && (
         <article>
           <h2>{blog.title}</h2>
-          <p>Written by {blog.author}</p>
+          <p>Written by: {blog.author}</p>
           <div>{blog.body}</div>
           {userId === blog.userId && loggedIn && (
             <button onClick={handleClick}>delete</button>
