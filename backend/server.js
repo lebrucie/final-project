@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
+const blogRoutes = require("./routes/blogRoutes");
 const bodyParser = require("body-parser");
 
 require("dotenv").config();
@@ -43,6 +44,7 @@ app.use((req, res, next) => {
 
 //routes
 app.use("/api/users", authRoutes);
+app.use("/api/blogs", blogRoutes);
 
 //Error Handling
 app.use((error, req, res, next) => {

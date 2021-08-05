@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import create from './actions/blogCreate'
 
 const Create = () => {
   const [title, setTitle] = useState("");
@@ -11,14 +12,12 @@ const Create = () => {
     e.preventDefault();
     const blog = { title, body, author };
 
-    fetch("http://localhost:8000/blogs/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(blog),
-    }).then(() => {
-      // history.go(-1);
-      history.push("/");
-    });
+   if (title && body && author) {
+      create(title, body, author);
+    } else {
+      console.log("Please fill all fields")
+      history.push("/")
+    }
   };
 
   return (
